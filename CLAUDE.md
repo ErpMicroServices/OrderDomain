@@ -93,6 +93,7 @@ OrderDomain/
 │   └── build.gradle       # API-specific dependencies
 ├── database/              # Database module (minimal currently)
 ├── ui-components/         # React frontend with Vite
+├── features/              # Shared BDD feature files (Gherkin)
 ├── config/               # Code quality configuration
 │   ├── checkstyle/       # Java code style rules
 │   ├── pmd/             # Static analysis rules
@@ -123,8 +124,9 @@ The API module follows DDD principles with these key patterns:
 
 3. **BDD Tests** (Cucumber)
    - Run with `./gradlew :api:bddTest`
-   - Located in test resources with .feature files
+   - Feature files located in shared `/features` directory
    - Uses Given-When-Then format
+   - Same features used by both API and UI testing
 
 ### Security Configuration
 
@@ -160,6 +162,7 @@ The project enforces these quality standards:
 
 1. **Feature Development**
    - Create feature branch from main
+   - Create BDD feature file in `/features` directory during implementation
    - Write integration tests first (BDD/Cucumber)
    - Write unit tests (TDD approach)
    - Implement feature code
@@ -180,6 +183,20 @@ The project enforces these quality standards:
    cd ui-components && npm run dev # Run frontend
    ```
 
+## BDD Testing Approach
+
+### Shared Feature Files
+- BDD feature files are stored in `/features` directory
+- Same feature files used by both API and UI testing
+- Create feature files during implementation, not upfront
+- Follow TDD/BDD cycle: Write failing test → Implement feature → Make test pass
+
+### Feature File Organization
+- Organize by business domain (order-management, quote-management, etc.)
+- Use business language, not technical implementation details
+- Include both happy path and error scenarios
+- Reference `/features/README.md` for detailed guidelines
+
 ## Important Notes
 
 - This is a template repository - customize CLAUDE.md for your specific domain
@@ -187,3 +204,4 @@ The project enforces these quality standards:
 - OWASP dependency check is currently disabled (skip = true) in build.gradle
 - No main README.md exists - consider creating one for project documentation
 - Frontend tests are not yet configured (package.json shows placeholder)
+- BDD feature files should be created during implementation, not in advance
