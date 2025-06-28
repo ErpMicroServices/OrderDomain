@@ -9,6 +9,10 @@ COPY gradle gradle
 COPY gradlew ./
 COPY settings.gradle ./
 COPY build.gradle ./
+COPY gradle.properties ./
+
+# Copy configuration files
+COPY config config/
 
 # Copy source code
 COPY api/build.gradle api/
