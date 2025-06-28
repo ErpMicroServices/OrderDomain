@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: people-and-organizations-api-test
+
+  # Disable Spring Cloud Config for tests
+  cloud:
+    config:
+      enabled: false
+    vault:
+      enabled: false
+
+  # Optional config import to prevent failures
+  config:
+    import: "optional:configserver:"
+
+  # Test database configuration - uses PostgreSQL via Testcontainers
+  datasource:
+    url: jdbc:tc:postgresql:15-alpine:///testdb
+    username: test
+    password: test  # pragma: allowlist secret
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+
+  graphql:
+    graphiql:
+      enabled: false
+    path: /graphql
+
+  # OAuth2 security configuration for tests
+  security:
+    oauth2:
+      client:
+        registration:
+          default:
+            client-id: test-client-id
+            client-secret: test-client-secret  # pragma: allowlist secret
+            scope: openid,profile,email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          default:
+            authorization-uri: http://localhost:9000/oauth2/authorize
+            token-uri: http://localhost:9000/oauth2/token
+            user-info-uri: http://localhost:9000/oauth2/userInfo
+            jwk-set-uri: http://localhost:9000/.well-known/jwks.json
+
+# Test profile specific configuration
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate: INFO
