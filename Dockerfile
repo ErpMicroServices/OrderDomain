@@ -23,8 +23,8 @@ COPY database/src database/src
 # Build the application
 RUN ./gradlew :api:build -x test --no-daemon
 
-# Extract built JAR layers
-RUN java -Djarmode=layertools -jar api/build/libs/*.jar extract
+# Extract built JAR layers (exclude the plain JAR)
+RUN find api/build/libs -name "*.jar" -not -name "*-plain.jar" -exec java -Djarmode=layertools -jar {} extract \;
 
 # Production stage
 FROM eclipse-temurin:21-jre-alpine
