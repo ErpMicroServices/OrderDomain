@@ -1,4 +1,4 @@
-# Multi-stage build for People and Organizations API
+# Multi-stage build for Order API
 FROM eclipse-temurin:21-jdk-alpine AS builder
 
 # Set working directory
@@ -30,10 +30,10 @@ RUN find api/build/libs -name "*.jar" -not -name "*-plain.jar" -exec java -Djarm
 FROM eclipse-temurin:21-jre-alpine
 
 # Add metadata
-LABEL org.opencontainers.image.title="People and Organizations API"
-LABEL org.opencontainers.image.description="People and Organizations Domain Microservice API"
+LABEL org.opencontainers.image.title="Order API"
+LABEL org.opencontainers.image.description="Order Domain Microservice API"
 LABEL org.opencontainers.image.vendor="ERP Microservices"
-LABEL org.opencontainers.image.source="https://github.com/ErpMicroServices/PeopleAndOrganizationDomain"
+LABEL org.opencontainers.image.source="https://github.com/ErpMicroServices/OrderDomain"
 
 # Create application user for security
 RUN addgroup -g 1001 -S appgroup && \

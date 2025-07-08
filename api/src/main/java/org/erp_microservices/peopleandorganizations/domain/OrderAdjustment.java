@@ -1,4 +1,4 @@
-package org.erp_microservices.peopleandorganizations.domain;
+package org.erp_microservices.order.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

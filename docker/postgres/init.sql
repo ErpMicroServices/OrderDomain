@@ -1,4 +1,4 @@
--- PostgreSQL Initialization Script for People and Organizations Domain
+-- PostgreSQL Initialization Script for Order Domain
 -- This script sets up the database with proper extensions, schemas, and initial configuration
 
 -- Enable required extensions
@@ -6,7 +6,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
 
 -- Create application schema (optional, using public schema by default)
--- CREATE SCHEMA IF NOT EXISTS people_org;
+-- CREATE SCHEMA IF NOT EXISTS order;
 
 -- Set timezone
 SET timezone = 'UTC';
@@ -18,9 +18,9 @@ SET timezone = 'UTC';
 -- Note: The user is already created by the POSTGRES_USER environment variable
 
 -- Configure connection limits and performance settings
-ALTER DATABASE people_and_organizations SET log_statement = 'all';
-ALTER DATABASE people_and_organizations SET log_min_duration_statement = 1000;
-ALTER DATABASE people_and_organizations SET shared_preload_libraries = 'pg_stat_statements';
+ALTER DATABASE order SET log_statement = 'all';
+ALTER DATABASE order SET log_min_duration_statement = 1000;
+ALTER DATABASE order SET shared_preload_libraries = 'pg_stat_statements';
 
 -- Create custom types that might be used by the application
 DO $$
@@ -82,6 +82,6 @@ VALUES ('database', 'INIT', '{"message": "Database initialized successfully"}', 
 -- Display initialization complete message
 DO $$
 BEGIN
-    RAISE NOTICE 'People and Organizations Domain database initialization completed successfully';
+    RAISE NOTICE 'Order Domain database initialization completed successfully';
     RAISE NOTICE 'Database: %, User: %, Time: %', current_database(), current_user, now();
 END $$;

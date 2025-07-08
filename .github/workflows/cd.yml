@@ -19,7 +19,7 @@ on:
 env:
   JAVA_VERSION: '21'
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/people-organizations-api
+  IMAGE_NAME: ${{ github.repository }}/orderanizations-api
 
 jobs:
   # Job 1: Build and test before deployment
@@ -142,7 +142,7 @@ jobs:
 
     environment:
       name: staging
-      url: https://staging-api.people-organizations.example.com
+      url: https://staging-api.orderanizations.example.com
 
     steps:
       - name: Checkout code
@@ -189,7 +189,7 @@ jobs:
 
     environment:
       name: production
-      url: https://api.people-organizations.example.com
+      url: https://api.orderanizations.example.com
 
     steps:
       - name: Checkout code
@@ -284,10 +284,10 @@ jobs:
           # Determine which environment was deployed
           if [[ "${{ needs.deploy-production.result }}" == "success" ]]; then
             ENVIRONMENT="production"
-            URL="https://api.people-organizations.example.com"
+            URL="https://api.orderanizations.example.com"
           else
             ENVIRONMENT="staging"
-            URL="https://staging-api.people-organizations.example.com"
+            URL="https://staging-api.orderanizations.example.com"
           fi
 
           echo "Environment: $ENVIRONMENT"

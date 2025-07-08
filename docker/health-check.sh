@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Comprehensive Health Check Script for People and Organizations Domain
+# Comprehensive Health Check Script for Order Domain
 # This script checks the health of all Docker services
 
 set -e
@@ -15,8 +15,8 @@ NC='\033[0m' # No Color
 # Configuration
 POSTGRES_HOST="${POSTGRES_HOST:-localhost}"
 POSTGRES_PORT="${POSTGRES_PORT:-5432}"
-POSTGRES_USER="${POSTGRES_USER:-people_org_user}"
-POSTGRES_DB="${POSTGRES_DB:-people_and_organizations}"
+POSTGRES_USER="${POSTGRES_USER:-order_user}"
+POSTGRES_DB="${POSTGRES_DB:-order}"
 
 API_HOST="${API_HOST:-localhost}"
 API_PORT="${API_PORT:-8080}"
@@ -175,7 +175,7 @@ check_docker_containers() {
 
     if command -v docker >/dev/null 2>&1; then
         # Check if containers are running
-        local containers=("people-org-postgres" "people-org-redis" "people-org-localstack" "people-org-api")
+        local containers=("order-postgres" "order-redis" "order-localstack" "order-api")
 
         for container in "${containers[@]}"; do
             if docker ps --format "table {{.Names}}" | grep -q "$container"; then
@@ -201,10 +201,10 @@ check_network() {
     echo -e "${BLUE}🌐 Checking network connectivity...${NC}"
 
     # Check internal Docker network (if applicable)
-    if docker network ls | grep -q "people-org-network"; then
-        print_status "Network" "OK" "Docker network 'people-org-network' exists"
+    if docker network ls | grep -q "order-network"; then
+        print_status "Network" "OK" "Docker network 'order-network' exists"
     else
-        print_status "Network" "WARNING" "Docker network 'people-org-network' not found"
+        print_status "Network" "WARNING" "Docker network 'order-network' not found"
     fi
 
     # Check port accessibility
@@ -246,7 +246,7 @@ display_summary() {
 
 # Main function
 main() {
-    echo -e "${BLUE}🏥 Starting comprehensive health check for People and Organizations Domain...${NC}"
+    echo -e "${BLUE}🏥 Starting comprehensive health check for Order Domain...${NC}"
     echo ""
 
     local exit_code=0

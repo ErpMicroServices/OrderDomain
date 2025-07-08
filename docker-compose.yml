@@ -2,10 +2,10 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: people-org-postgres
+    container_name: order-postgres
     environment:
-      POSTGRES_DB: people_and_organizations
-      POSTGRES_USER: people_org_user
+      POSTGRES_DB: order
+      POSTGRES_USER: order_user
       POSTGRES_PASSWORD: dev_password_123  # pragma: allowlist secret
       POSTGRES_INITDB_ARGS: "--auth-local=trust"
     ports:
@@ -14,9 +14,9 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
-      - people-org-network
+      - order-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U people_org_user -d people_and_organizations"]
+      test: ["CMD-SHELL", "pg_isready -U order_user -d order"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,13 +26,13 @@ services:
   # Redis for Caching
   redis:
     image: redis:7-alpine
-    container_name: people-org-redis
+    container_name: order-redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
-      - people-org-network
+      - order-network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -47,11 +47,11 @@ services:
       context: .
       dockerfile: Dockerfile
       target: builder
-    container_name: people-org-api
+    container_name: order-api
     environment:
       # Database Configuration
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/people_and_organizations
-      SPRING_DATASOURCE_USERNAME: people_org_user
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/order
+      SPRING_DATASOURCE_USERNAME: order_user
       SPRING_DATASOURCE_PASSWORD: dev_password_123  # pragma: allowlist secret
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_JPA_SHOW_SQL: true
@@ -87,7 +87,7 @@ services:
       - ./api/src:/app/api/src:ro
       - ./api/build.gradle:/app/api/build.gradle:ro
     networks:
-      - people-org-network
+      - order-network
     depends_on:
       postgres:
         condition: service_healthy
@@ -102,14 +102,14 @@ services:
     restart: unless-stopped
 
 networks:
-  people-org-network:
+  order-network:
     driver: bridge
-    name: people-org-network
+    name: order-network
 
 volumes:
   postgres_data:
     driver: local
-    name: people-org-postgres-data
+    name: order-postgres-data
   redis_data:
     driver: local
-    name: people-org-redis-data
+    name: order-redis-data

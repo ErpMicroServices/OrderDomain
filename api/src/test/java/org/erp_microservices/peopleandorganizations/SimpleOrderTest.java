@@ -1,7 +1,7 @@
-package org.erp_microservices.peopleandorganizations;
+package org.erp_microservices.order;
 
-import org.erp_microservices.peopleandorganizations.domain.Order;
-import org.erp_microservices.peopleandorganizations.domain.OrderItem;
+import org.erp_microservices.order.domain.Order;
+import org.erp_microservices.order.domain.OrderItem;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -49,17 +49,17 @@ public class SimpleOrderTest {
         LocalDate orderDate = LocalDate.of(2024, 1, 15);
 
         Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
-        
+
         UUID productId1 = UUID.randomUUID();
         UUID productId2 = UUID.randomUUID();
-        
+
         OrderItem item1 = order.addItem(1L, 10L, new BigDecimal("25.00"), productId1);
         OrderItem item2 = order.addItem(2L, 5L, new BigDecimal("50.00"), productId2);
 
         assertThat(order.getItems()).hasSize(2);
         assertThat(item1.getQuantity()).isEqualTo(10L);
         assertThat(item2.getQuantity()).isEqualTo(5L);
-        
+
         BigDecimal total = order.calculateTotal();
         assertThat(total).isEqualByComparingTo(new BigDecimal("500.00"));
     }

@@ -1,6 +1,6 @@
 # GitHub Actions Workflows
 
-This directory contains the CI/CD pipelines for the People and Organizations Domain microservice. These workflows ensure code quality, security, and reliable deployment processes.
+This directory contains the CI/CD pipelines for the Order Domain microservice. These workflows ensure code quality, security, and reliable deployment processes.
 
 ## Overview
 
@@ -226,14 +226,14 @@ Our Dockerfile implements security best practices:
 
 ### Staging Environment
 
-- **URL**: https://staging-api.people-organizations.example.com
+- **URL**: https://staging-api.orderanizations.example.com
 - **Deployment**: Automatic on main branch merge
 - **Purpose**: Integration testing and feature validation
 - **Database**: Staging PostgreSQL instance
 
 ### Production Environment
 
-- **URL**: https://api.people-organizations.example.com
+- **URL**: https://api.orderanizations.example.com
 - **Deployment**: Manual on release tags
 - **Purpose**: Live user traffic
 - **Database**: Production PostgreSQL cluster

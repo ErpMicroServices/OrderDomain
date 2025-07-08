@@ -1,4 +1,4 @@
-package org.erp_microservices.peopleandorganizations.domain;
+package org.erp_microservices.order.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +34,7 @@ class OrderTest {
         @DisplayName("Should create order with valid data")
         void shouldCreateOrderWithValidData() {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
-            
+
             assertThat(order.getId()).isEqualTo(orderId);
             assertThat(order.getOrderIdentifier()).isEqualTo("ORD-001");
             assertThat(order.getOrderDate()).isEqualTo(orderDate);
@@ -70,9 +70,9 @@ class OrderTest {
             UUID productId = UUID.randomUUID();
             BigDecimal unitPrice = new BigDecimal("25.00");
             Long quantity = 10L;
-            
+
             OrderItem item = order.addItem(1L, quantity, unitPrice, productId);
-            
+
             assertThat(item.getSequenceId()).isEqualTo(1L);
             assertThat(item.getQuantity()).isEqualTo(quantity);
             assertThat(item.getUnitPrice()).isEqualTo(unitPrice);
@@ -86,10 +86,10 @@ class OrderTest {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID productId1 = UUID.randomUUID();
             UUID productId2 = UUID.randomUUID();
-            
+
             order.addItem(1L, 10L, new BigDecimal("25.00"), productId1); // 250.00
             order.addItem(2L, 5L, new BigDecimal("50.00"), productId2);  // 250.00
-            
+
             BigDecimal expectedTotal = new BigDecimal("500.00");
             assertThat(order.calculateTotal()).isEqualByComparingTo(expectedTotal);
         }
@@ -100,7 +100,7 @@ class OrderTest {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID productId = UUID.randomUUID();
             BigDecimal unitPrice = new BigDecimal("25.00");
-            
+
             assertThatThrownBy(() -> order.addItem(1L, -5L, unitPrice, productId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Quantity must be positive");
@@ -112,7 +112,7 @@ class OrderTest {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID productId = UUID.randomUUID();
             BigDecimal negativePrice = new BigDecimal("-10.00");
-            
+
             assertThatThrownBy(() -> order.addItem(1L, 10L, negativePrice, productId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Unit price must be non-negative");
@@ -129,9 +129,9 @@ class OrderTest {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID adjustmentTypeId = UUID.randomUUID(); // Discount type
             BigDecimal discountPercentage = new BigDecimal("10.00");
-            
+
             OrderAdjustment adjustment = order.addAdjustment(adjustmentTypeId, null, discountPercentage);
-            
+
             assertThat(adjustment.getPercentage()).isEqualByComparingTo(discountPercentage);
             assertThat(adjustment.getOrderAdjustmentTypeId()).isEqualTo(adjustmentTypeId);
             assertThat(order.getAdjustments()).hasSize(1);
@@ -143,9 +143,9 @@ class OrderTest {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID adjustmentTypeId = UUID.randomUUID(); // Fee type
             BigDecimal fixedAmount = new BigDecimal("15.00");
-            
+
             OrderAdjustment adjustment = order.addAdjustment(adjustmentTypeId, fixedAmount, null);
-            
+
             assertThat(adjustment.getAmount()).isEqualByComparingTo(fixedAmount);
             assertThat(adjustment.getOrderAdjustmentTypeId()).isEqualTo(adjustmentTypeId);
         }
@@ -159,7 +159,7 @@ class OrderTest {
         @DisplayName("Should start with CREATED status")
         void shouldStartWithCreatedStatus() {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
-            
+
             assertThat(order.getCurrentStatus().getStatus()).isEqualTo("CREATED");
             assertThat(order.getCurrentStatus().getStatusChanged()).isNotNull();
         }
@@ -169,9 +169,9 @@ class OrderTest {
         void shouldUpdateStatusWithTimestamp() {
             Order order = new Order(orderId, "ORD-001", orderDate, orderTypeId);
             UUID statusTypeId = UUID.randomUUID(); // PROCESSING status
-            
+
             order.updateStatus(statusTypeId);
-            
+
             assertThat(order.getCurrentStatus().getOrderStatusTypeId()).isEqualTo(statusTypeId);
             assertThat(order.getStatusHistory()).hasSize(2); // CREATED + PROCESSING
         }

@@ -1,4 +1,4 @@
-rootProject.name = 'PeopleAndOrganizationsDomain'
+rootProject.name = 'OrderDomain'
 include 'database'
 include 'api'
 include 'ui-components'

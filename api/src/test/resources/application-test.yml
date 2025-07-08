@@ -1,6 +1,6 @@
 spring:
   application:
-    name: people-and-organizations-api-test
+    name: Order Domain
 
   # Disable Spring Cloud Config for tests
   cloud:

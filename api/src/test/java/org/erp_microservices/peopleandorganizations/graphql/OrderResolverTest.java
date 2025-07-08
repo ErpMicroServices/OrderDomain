@@ -1,4 +1,4 @@
-package org.erp_microservices.peopleandorganizations.graphql;
+package org.erp_microservices.order.graphql;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

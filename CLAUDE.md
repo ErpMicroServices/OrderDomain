@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Domain-Driven Design (DDD) microservices template repository called OrderDomain. It provides a foundation for building domain-driven microservices with Spring Boot GraphQL API and React frontend.
 
-**Note**: The build files reference "PeopleAndOrganizationsDomain" - this appears to be a naming inconsistency that should be addressed when customizing for your specific domain.
+**Note**: The build files reference "OrderDomain" - this appears to be a naming inconsistency that should be addressed when customizing for your specific domain.
 
 ## Technology Stack
 
@@ -200,7 +200,7 @@ The project enforces these quality standards:
 ## Important Notes
 
 - This is a template repository - customize CLAUDE.md for your specific domain
-- The project name inconsistency (OrderDomain vs PeopleAndOrganizationsDomain) needs resolution
+- The project name inconsistency (OrderDomain vs OrderDomain) needs resolution
 - OWASP dependency check is currently disabled (skip = true) in build.gradle
 - No main README.md exists - consider creating one for project documentation
 - Frontend tests are not yet configured (package.json shows placeholder)

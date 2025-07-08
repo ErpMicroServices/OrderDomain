@@ -1,4 +1,4 @@
-package org.erp_microservices.peopleandorganizations.steps;
+package org.erp_microservices.order.steps;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
@@ -69,11 +69,11 @@ public class OrderManagementSteps {
     @When("I create a new sales order with the following details:")
     public void iCreateANewSalesOrderWithTheFollowingDetails(DataTable dataTable) {
         Map<String, String> orderDetails = dataTable.asMap();
-        
+
         // TODO: Call OrderService to create sales order
         // Convert dataTable to order creation request
         // Store result for verification
-        
+
         // For now, simulate the behavior
         currentOrderId = UUID.randomUUID().toString();
     }
@@ -81,11 +81,11 @@ public class OrderManagementSteps {
     @When("I create a new purchase order with the following details:")
     public void iCreateANewPurchaseOrderWithTheFollowingDetails(DataTable dataTable) {
         Map<String, String> orderDetails = dataTable.asMap();
-        
+
         // TODO: Call OrderService to create purchase order
         // Convert dataTable to order creation request
         // Store result for verification
-        
+
         // For now, simulate the behavior
         currentOrderId = UUID.randomUUID().toString();
     }
@@ -105,7 +105,7 @@ public class OrderManagementSteps {
     @When("I add the following items to the order:")
     public void iAddTheFollowingItemsToTheOrder(DataTable dataTable) {
         List<Map<String, String>> items = dataTable.asMaps();
-        
+
         // TODO: Call OrderItemService to add items to order
         // Convert dataTable to order item creation requests
         // Store results for verification
@@ -126,7 +126,7 @@ public class OrderManagementSteps {
     @When("I attempt to add an order item with invalid data:")
     public void iAttemptToAddAnOrderItemWithInvalidData(DataTable dataTable) {
         Map<String, String> invalidData = dataTable.asMap();
-        
+
         // TODO: Attempt to add order item with invalid data
         // Capture validation exceptions
         try {
