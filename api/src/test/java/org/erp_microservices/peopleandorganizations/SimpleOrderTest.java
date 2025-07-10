@@ -1,7 +1,7 @@
-package org.erp_microservices.order;
+package org.erp_microservices.peopleandorganizations;
 
-import org.erp_microservices.order.domain.Order;
-import org.erp_microservices.order.domain.OrderItem;
+import org.erp_microservices.peopleandorganizations.domain.Order;
+import org.erp_microservices.peopleandorganizations.domain.OrderItem;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

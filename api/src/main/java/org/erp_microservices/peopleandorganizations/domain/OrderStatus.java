@@ -1,4 +1,4 @@
-package org.erp_microservices.order.domain;
+package org.erp_microservices.peopleandorganizations.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +23,9 @@ public class OrderStatus {
 
     @Column(name = "order_status_type_id")
     private UUID orderStatusTypeId;
+    
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_for_order_item_id")
@@ -33,8 +36,7 @@ public class OrderStatus {
     private Order statusForOrder;
 
     public String getStatus() {
-        // This is a simplified implementation
-        // In a full implementation, this would join with order_status_type table
-        return "CREATED";
+        // Return the status field if set, otherwise return a default
+        return status != null ? status : "CREATED";
     }
 }

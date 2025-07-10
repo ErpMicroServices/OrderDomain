@@ -1,4 +1,4 @@
-package org.erp_microservices.order.domain;
+package org.erp_microservices.peopleandorganizations.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

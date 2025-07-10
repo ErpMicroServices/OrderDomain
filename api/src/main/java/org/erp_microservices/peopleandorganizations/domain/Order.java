@@ -1,4 +1,4 @@
-package org.erp_microservices.order.domain;
+package org.erp_microservices.peopleandorganizations.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -76,7 +76,12 @@ public class Order {
         this.entryDate = LocalDate.now();
 
         // Initialize with CREATED status
-        addStatus(null); // Will need proper status type ID in full implementation
+        OrderStatus initialStatus = new OrderStatus();
+        initialStatus.setId(UUID.randomUUID());
+        initialStatus.setStatus("CREATED");
+        initialStatus.setStatusChanged(LocalDateTime.now());
+        initialStatus.setStatusForOrder(this);
+        this.statusHistory.add(initialStatus);
     }
 
     public OrderItem addItem(Long sequenceId, Long quantity, BigDecimal unitPrice, UUID productId) {
