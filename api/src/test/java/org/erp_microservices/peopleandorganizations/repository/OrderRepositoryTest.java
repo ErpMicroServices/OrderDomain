@@ -19,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("test")
-@Tag("integration")
-@DisplayName("Order Repository Integration Tests")
+@DisplayName("Order Repository Tests")
 class OrderRepositoryTest {
 
     @Autowired
