@@ -1,4 +1,4 @@
-package org.erp_microservices.order;
+package org.erp_microservices.peopleandorganizations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

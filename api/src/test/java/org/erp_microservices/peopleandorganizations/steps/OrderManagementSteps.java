@@ -1,4 +1,4 @@
-package org.erp_microservices.order.steps;
+package org.erp_microservices.peopleandorganizations.steps;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
