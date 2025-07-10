@@ -51,6 +51,7 @@ dependencies {
     testImplementation 'org.testcontainers:vault'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.mockito:mockito-junit-jupiter'
+    testRuntimeOnly 'com.h2database:h2'
 
     // Cucumber BDD Testing Dependencies
     testImplementation 'io.cucumber:cucumber-java:7.18.1'
