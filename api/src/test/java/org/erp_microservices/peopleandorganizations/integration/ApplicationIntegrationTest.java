@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("integration")
 @Tag("integration")
 @DisplayName("Application Integration Test")
 class ApplicationIntegrationTest {
