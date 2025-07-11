@@ -1,0 +1,58 @@
+type Query {
+    # Order queries
+    orderById(id: UUID!): Order
+    ordersByStatus(status: String!): [Order!]!
+    ordersByCustomer(customerId: UUID!): [Order!]!
+    ordersBySupplier(supplierId: UUID!): [Order!]!
+    ordersByDateRange(startDate: LocalDate!, endDate: LocalDate!): [Order!]!
+}
+
+type Mutation {
+    # Order mutations
+    createSalesOrder(
+        orderIdentifier: String!
+        orderDate: LocalDate!
+        customerId: UUID!
+        billingLocationId: UUID!
+    ): Order!
+    
+    createPurchaseOrder(
+        orderIdentifier: String!
+        orderDate: LocalDate!
+        supplierId: UUID!
+        billingLocationId: UUID!
+    ): Order!
+    
+    updateOrderStatus(
+        orderId: UUID!
+        status: String!
+        reason: String
+    ): Order!
+    
+    # Order item mutations
+    addOrderItem(
+        orderId: UUID!
+        sequenceId: Int!
+        quantity: Int!
+        unitPrice: BigDecimal!
+        productId: UUID!
+        description: String
+    ): OrderItem!
+    
+    updateOrderItem(
+        itemId: UUID!
+        quantity: Int!
+        unitPrice: BigDecimal!
+    ): OrderItem!
+    
+    removeOrderItem(itemId: UUID!): Boolean!
+    
+    # Order adjustment mutations
+    addOrderAdjustment(
+        orderId: UUID!
+        typeId: UUID!
+        amount: BigDecimal!
+        percentage: BigDecimal
+        description: String
+    ): OrderAdjustment!
+}
