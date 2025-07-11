@@ -70,7 +70,7 @@ Jenkinsfile
 .circleci/
 
 # Quality tools configs
-config/
+# config/ - Need this for build process
 .checkstyle
 .pmdcache
 spotbugsXml.xml

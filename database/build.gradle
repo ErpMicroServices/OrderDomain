@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'org.erp_microservices.peopleandorganizations'
+group = 'org.erp_microservices.order'
 version = '1.0-SNAPSHOT'
 
 repositories {

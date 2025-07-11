@@ -1,4 +1,4 @@
-# Multi-stage build for People and Organizations API
+# Multi-stage build for Order API
 FROM eclipse-temurin:21-jdk-alpine AS builder
 
 # Set working directory
@@ -9,6 +9,10 @@ COPY gradle gradle
 COPY gradlew ./
 COPY settings.gradle ./
 COPY build.gradle ./
+COPY gradle.properties ./
+
+# Copy configuration files
+COPY config config/
 
 # Copy source code
 COPY api/build.gradle api/
@@ -19,17 +23,17 @@ COPY database/src database/src
 # Build the application
 RUN ./gradlew :api:build -x test --no-daemon
 
-# Extract built JAR layers
-RUN java -Djarmode=layertools -jar api/build/libs/*.jar extract
+# Extract built JAR layers (exclude the plain JAR)
+RUN find api/build/libs -name "*.jar" -not -name "*-plain.jar" -exec java -Djarmode=layertools -jar {} extract \;
 
 # Production stage
 FROM eclipse-temurin:21-jre-alpine
 
 # Add metadata
-LABEL org.opencontainers.image.title="People and Organizations API"
-LABEL org.opencontainers.image.description="People and Organizations Domain Microservice API"
+LABEL org.opencontainers.image.title="Order API"
+LABEL org.opencontainers.image.description="Order Domain Microservice API"
 LABEL org.opencontainers.image.vendor="ERP Microservices"
-LABEL org.opencontainers.image.source="https://github.com/ErpMicroServices/PeopleAndOrganizationDomain"
+LABEL org.opencontainers.image.source="https://github.com/ErpMicroServices/OrderDomain"
 
 # Create application user for security
 RUN addgroup -g 1001 -S appgroup && \

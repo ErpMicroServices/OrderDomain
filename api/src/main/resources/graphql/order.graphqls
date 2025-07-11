@@ -1,0 +1,95 @@
+scalar UUID
+scalar BigDecimal
+scalar LocalDate
+scalar LocalDateTime
+
+type Order {
+    id: UUID!
+    orderIdentifier: String!
+    orderDate: LocalDate!
+    entryDate: LocalDate!
+    orderTypeId: UUID!
+    orderType: String
+    placedByPartyRoleId: UUID
+    billingLocationContactMechanismId: UUID
+    items: [OrderItem!]!
+    adjustments: [OrderAdjustment!]!
+    statusHistory: [OrderStatus!]!
+    currentStatus: OrderStatus
+    total: BigDecimal!
+}
+
+type OrderItem {
+    id: UUID!
+    sequenceId: Int!
+    quantity: Int!
+    unitPrice: BigDecimal!
+    estimatedDeliveryDate: LocalDate
+    productId: UUID
+    itemTotal: BigDecimal!
+}
+
+type OrderAdjustment {
+    id: UUID!
+    amount: BigDecimal
+    percentage: BigDecimal
+    orderAdjustmentTypeId: UUID!
+}
+
+type OrderStatus {
+    id: UUID!
+    status: String!
+    statusChanged: LocalDateTime!
+    orderStatusTypeId: UUID
+}
+
+input CreateSalesOrderInput {
+    orderIdentifier: String!
+    orderDate: LocalDate!
+    customerId: UUID!
+    billingLocationId: UUID!
+}
+
+input CreatePurchaseOrderInput {
+    orderIdentifier: String!
+    orderDate: LocalDate!
+    supplierId: UUID!
+    deliveryLocationId: UUID!
+}
+
+input AddOrderItemInput {
+    orderId: UUID!
+    sequenceId: Int!
+    quantity: Int!
+    unitPrice: BigDecimal!
+    productId: UUID!
+    deliveryDate: LocalDate
+}
+
+input UpdateOrderItemQuantityInput {
+    orderId: UUID!
+    sequenceId: Int!
+    newQuantity: Int!
+}
+
+input RemoveOrderItemInput {
+    orderId: UUID!
+    sequenceId: Int!
+}
+
+type Query {
+    order(id: UUID!): Order
+    orderByIdentifier(orderIdentifier: String!): Order
+    ordersByDateRange(startDate: LocalDate!, endDate: LocalDate!): [Order!]!
+    ordersByCustomer(customerId: UUID!): [Order!]!
+    ordersBySupplier(supplierId: UUID!): [Order!]!
+    ordersByStatus(status: String!): [Order!]!
+}
+
+type Mutation {
+    createSalesOrder(input: CreateSalesOrderInput!): Order!
+    createPurchaseOrder(input: CreatePurchaseOrderInput!): Order!
+    addOrderItem(input: AddOrderItemInput!): OrderItem!
+    updateOrderItemQuantity(input: UpdateOrderItemQuantityInput!): Order!
+    removeOrderItem(input: RemoveOrderItemInput!): Order!
+}
